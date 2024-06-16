@@ -1,46 +1,45 @@
 "use client";
 
 import { useState } from "react";
+import CountriesPage from "./CountriesPage";
 
 const ToDoApp = () => {
-    const [newItem, setNewItem] = useState("");
-    const [items, setItems] = useState<{ id: number; value: string; }[]>([]);
+    const [todos, setTodos] = useState("");
+    const [todoArray, setTodoArray] = useState<{ id: number; value: string; }[]>([]);
 
-    function addItem() {
-        if (!newItem) {
-            alert("Enter an item.");
-            return;
-        }
-
+    const addItem = () => {
         const item = {
             id: Math.floor(Math.random() * 1000),
-            value: newItem
-        }
+            value: todos,
+        };
 
-        setItems(oldList => [...oldList, item]);
-        setNewItem("");
+        setTodoArray(oldList => [...oldList, item]);
+        setTodos("");
     }
 
-    function deleteItem(id: number) {
-        const newArray = items.filter(item => item.id !== id);
-        setItems(newArray);
+    const removeItem = (id: number) => {
+        const newArray = todoArray.filter(item => item.id !== id);
+        setTodoArray(newArray);
     }
 
     return (
         <div>
             <h1>ToDo App</h1>
-
-            <input type="text" placeholder="Add a task" value={newItem} onChange={e => setNewItem(e.target.value)} />
-
-            <button onClick={addItem}>Add</button>
+            <input type="text" placeholder="Add a todo" value={todos} onChange={e => setTodos(e.target.value)} />
+            <button onClick={addItem}>Add Item</button>
 
             <ul>
-                {items.map(item => {
+                {/* {todoArray.map(item => {
                     return (
-                        <li key={item.id}>{item.value} <button onClick={() => deleteItem(item.id)}>Delete Item</button></li>
+                        <li key={item.id}>{item.value} <button onClick={() => removeItem(item.id)}>Remove Item</button></li>
                     )
-                })}
+                })} */}
+                {todoArray.map(item => (
+                    <li key={item.id}>{item.value} <button onClick={() => removeItem(item.id)}>Remove Item</button></li>
+                ))}
             </ul>
+
+            {/* <CountriesPage /> */}
         </div>
     )
 }

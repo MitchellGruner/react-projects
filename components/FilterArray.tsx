@@ -14,22 +14,22 @@ const FilterArray = () => {
     ];
 
     const [fruitsData, setFruitsData] = useState(fruits);
-    const [searchTerm, setSearchTerm] = useState("");
+    const [filteredFruits, setFilteredFruits] = useState("");
 
-    const fruitsDataFiltered = fruitsData.filter(fruit => {
-        return fruit.toLowerCase().includes(searchTerm.toLowerCase());
+    const filterFruits = fruitsData.filter(fruit => {
+        return fruit.toLowerCase().includes(filteredFruits.toLowerCase());
     });
     
     return (
         <div>
-            <input type="text" placeholder="Search fruits" onChange={e => setSearchTerm(e.target.value)} />
-            {fruitsDataFiltered.map((fruit: string) => {
-                return (
-                    <div key={fruit}>    
-                        <p>{fruit}</p>
-                    </div>
-                )
-            })}
+            <h1>Filter Array</h1>
+            <input type="text" placeholder="Search for a fruit" onChange={e => setFilteredFruits(e.target.value)} />
+
+            <ul>
+                {filterFruits.map(fruit => (
+                    <li key={fruit}>{fruit}</li>
+                ))}
+            </ul>
         </div>
     )
 }
